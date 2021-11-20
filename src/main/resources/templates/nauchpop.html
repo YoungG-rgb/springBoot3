@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Научпоп</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="http://localhost:8088/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="https://mydiscoveries.ru/">Статьи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/stories">Истории успеха</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Для студента
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="https://javarush.ru/internship">Стажировка от Java-Rush</a></li>
+                        <li><a class="dropdown-item" href="/educationalMaterial">Образовательный материал</a></li>
+                        <li><a class="dropdown-item" href="/interviews">Собеседования</a></li>
+                        <li><a class="dropdown-item" href="/nauchpop">Научпоп</a></li>
+                        <li><a class="dropdown-item" href="https://pogoda.mail.ru/country/kyrgyzstan/">Погода</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/blog" tabindex="-1">Блог</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input id="searchMainPageInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="searchMainPageButton" class="btn btn-warning" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-auto text-lg-end py-2 py-lg-0">
+        <button type="button" class="btn btn-primary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#exampleModal">Вход</button>
+        <!-- Modal for Autorization -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Authorization</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/login">
+                            <div class="mb-3">
+                                <label for="SignInUsername" class="form-label">Имя пользователя</label>
+                                <input type="text" placeholder="Username" class="form-control"
+                                       id="SignInUsername" name="username">
+                                <div id="emailHelp" class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="SignInPassword" class="form-label">Пароль</label>
+                                <input type="password" placeholder="Password" class="form-control"
+                                       id="SignInPassword" name="password"><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="remember-me">
+                                    <label class="form-check-label" for="flexCheckDefault">Запомнить пароль</label>
+                                </div><br>
+                                <div class="button-in">
+                                    <button type="submit" class="btn btn-warning">Войти</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistration">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END modal-->
+        <a class="btn btn-outline-secondary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#modalRegistration">Регистрация</a>
+        <!-- Modal -->
+        <div class="modal fade" id="modalRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Registration</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="add-user" id="myForm">
+                            <div class="text-center">
+                                <div class="form-group">
+                                    <label for="name">First name</label><br>
+                                    <input type="text" id="name"><br>
+                                    <br>
+                                    <label for="lastName">Last name</label><br>
+                                    <input type="text" id="lastName"/><br/>
+                                    <br>
+                                    <label for="nickname">Nickname</label><br>
+                                    <input type="text" id="nickname"/><br/>
+                                    <br>
+                                    <label for="birthDate">Birthdate</label><br>
+                                    <input type="text" id="birthDate"/><br/>
+                                    <br>
+                                    <label for="country">Country</label><br>
+                                    <input type="text" id="country"/><br/>
+                                    <br>
+                                    <label for="details">Details</label><br>
+                                    <input type="text" id="details"/><br/>
+                                    <br>
+                                    <label for="mail">Mail</label><br>
+                                    <input type="email" id="mail"/><br/>
+                                    <br>
+                                    <label for="password">Password</label><br>
+                                    <input type="password" id="password"/><br/>
+                                    <br>
+                                    <div> <!-- For select (roles) -->
+                                        <p style="color: black">Role</p>
+                                        <select id="selectedRoles" multiple required size="3">
+                                            <div th:each="role : ${AllRoles}">
+                                                <option th:text="${role.getRole()}" th:value="${role.getId()}"></option>
+                                            </div>
+                                        </select>
+                                    </div> <!-- End roles select -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="addUser" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-outline-danger" sec:authorize="isAuthenticated()" href="/logout">Выйти</a>
+    </div>
+</nav>
+<!-- END NAVBAR -->
+<h1>Прокрастинация — нужно ли с ней бороться и как программистам с этим жить
+</h1>
+<img src="https://cdn2.hexlet.io/store/derivatives/4bb15b5529ce75ca0ea6b3054e5e9dd9/fill_webp-850-400.webp">
+<div class="hexlet-blog-post-body">
+    <h2><strong>Про прокрастинацию написаны тысячи статей, сняты сотни фильмов и книг, а различные коучи и бизнес-тренеры собрали 1000 и 1 способ борьбы с ней. Хотя на самом деле прокрастинация не так страшна, как обычно о ней рассказывают — главное, подходить к ней с умом. По словам нейробиологов, в 80% случаев прокрастинация — это продукт лени, остальные 20% — обычное выгорание, усталость или отсутствие мотивации. Мы рассказываем, нужно ли бороться с прокрастинацией, и как вообще нам с ней жить.</strong></h2><h2 id="pro-20">Про 20%</h2>
+    <h3>Как понять, что вы прокрастинируете вовсе не из-за лени, а у вас есть другие причины для этого. Например — выгорание.</h3>
+    <p><strong>Делаем чекап:</strong></p>
+    <ul>
+        <li>Высыпаетесь ли вы в последнее время;</li>
+        <li>Была ли физическая активность (спорт, долгие прогулки);</li>
+        <li>Хорошо ли питались (речь, конечно же, о здоровой и правильной пище);</li>
+    </ul>
+    <h2>Прокрастинация === лень?</h2>
+    <h3>Окей, что такое прокрастинация? У прокрастинации два происхождения:</h3>
+    <ol>
+        <li>От латинского “procrastinare” — откладывать на завтра;</li>
+        <li>От греческого “akrasia” — когда вы делаете что-то против здравого смысла, сюда же можно добавить недостаток самоконтроля;</li>
+    </ol>
+    <h3>В современном мире прокрастинация — это когда вы филоните, откладываете свои задачи на завтра, послезавтра, через неделю, месяц, хотя можно это сделать уже сейчас. </h3>
+    <h3>Профессор психологии Шеффилдского университета <a href="https://www.brut.media/us/international/how-to-finally-stop-procrastinating-1a48f7fb-b39f-4454-8bb0-61efa9430b9d" target="_blank" rel="nofollow">доктор Фушия Сироис</a> полагает, что прокрастинация — продукт плохого настроения. Представьте, что у вас есть два «я» — «я-Настоящий» и «я-Будущий». Вы ставите перед собой цель — например, «хочу выучить Python и писать такой качественный и кристально-чистый код, чтобы мне завидовали все программисты и тимлиды планеты». Наш мозг видит ценность действия и долгосрочную выгоду — вознаграждение. </h3>
+    <h3>Все цели, которые ставит «я-Будущее», должно выполнять «я-Настоящий» — и здесь кроется большая проблема. В таком раскладе наш мозг переносится в настоящее — в момент, когда сейчас нужно принимать какие-то решения и выполнять реальные действия. При этом «я-Настоящий» обычно выбирает сиюминутное наслаждение — ведь ждать это совсем не про него. Поэтому мы залипаем на лёгкие видосики на YouTube, забавную переписку в соцсетях или на ленту в Инстаграме. Как говорит <a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%86%D0%B5%D0%B2%D0%B0,_%D0%90%D1%81%D1%8F" target="_blank" rel="nofollow">Ася Казанцева</a>: «Мозг неоднороден, в нём есть разные отделы, и все они постоянно спорят друг с другом. Отказаться от сиюминутного наслаждения в пользу долгосрочных целей — это настоящий челендж».</h3>
+    <h3>Есть обратная сторона прокрастинации — эмоциональная. Вот, что говорит доктор <a href="https://carleton.ca/psychology/people/timothy-a-pychyl/" target="_blank" rel="nofollow">Тим Пичил</a>, профессор психологии и член исследовательской группы прокрастинации в Карлтонском университете в Оттаве: «Прокрастинация — проблема регуляции эмоций, а не проблема управления временем». Нежелание делать конкретную задачу может быть вызвано тем, что нам просто что-то в ней неприятно — например, когда нужно составить длинную скучную таблицу, изучить объемный мануал. </h3>
+    <h3>Другими причинами прокрастинации могут быть неуверенность в себе, повышенная тревожность, низкая самооценка. Иронично, что мы можем откладывать дела на потом, чтобы подсознательно избежать негативных чувств, но, в конечном итоге, чувствуем себя еще хуже.</h3>
+    <h3>Американский писатель и журналист Джеймс Клир в своей книге <a href="https://jamesclear.com/atomic-habits" target="_blank" rel="nofollow">Atomic Habits</a> пишет про так называемую линию действия — The Procrastination-Action Line. «Я-Настоящее» мало мотивируют награды и удовольствия, отложенные на потом — поэтому ему нужно найти способ, который перенесет награду из будущего в настоящее. </h3>
+    <h3>Например, вам нужно сдать наставнику проект. Это нужно сделать как можно скорее, но вы всё время откладываете задачу на потом. Вас это беспокоит, доставляет психологический дискомфорт — однако даже чувства внутри не могут заставить засесть за проект. Потом за день до установленного дедлайна вы садитесь, пишете проект и отправляете его наставнику — при этом вся задача занимает у вас всего-то несколько часов (не дней или недель). Негативные чувства идут на спад и вы ощущаете явное облегчение. И оказывается, что проблема вовсе не в том, что надо сделать проект, а просто в том, чтобы его начать. То есть, если мы хотим больше не откладывать на потом, нужно максимально упростить задачу для «Я-Настоящего» — ведь обычно мотивация к действию приходит уже после старта процесса.</h3><h2 id="kak-rabotat-s-prokrastinatsiey">Как работать с прокрастинацией?</h2><h4 id="voznagrazhday-sebya-za-deystviya-zdes-i-seychas">Вознаграждай себя за действия «здесь и сейчас»</h4><h2>Исследователь из университета Пенсильвании Кэти Милкман считает, что нужно во время прокрастинации делать те вещи, которые вам нравятся. При этом такие действия можно совместить с полезными вещами:</h2>
+    <ul>
+        <li>Слушай любимые подкасты только во время тренировок;</li>
+        <li>Смотри любимое шоу только во время выполнения домашних дел;</li>
+        <li>Читай и переписывайся в чатиках с друзьями только пока едешь в метро или на автобусе домой/из дома;</li>
+        <li>Смотри сериалы только вечером выходных; </li>
+    </ul>
+    <h3></h3><div class="hexlet-blog-custom-quote"></div><p></p>
+    <blockquote>
+        <h3><em class="h3 d-block fst-normal">Смотрите полезные вебинары:</em>
+            Продуктивность программиста без выгорания? <a href="https://ru.hexlet.io/blog/posts/produktivnost-programmista-bez-vygoraniya-vebinar-s-maksimom-dorofeevym-ob-effektivnosti-i-prokrastinatsii" target="_blank">Вебинар с Максимом Дорофеевым об эффективности и прокрастинации</a>.</h3></blockquote>
+    <h4 id="stav-dedlayny">Ставь дедлайны</h4><h2>По словам доктора Тима Пичила, нужно всегда ставить себе дедлайны. Поставил задачу — тут же отметил дедлайн, когда она должна быть сделана. </h2><h4 id="spisok-del">Список дел</h4><h2>Заранее составляй свой to-do лист и вноси в него даже самые маленькие дела: сделать 10 минутный перерыв в работе, попить ромашковый чай, полить фиалки, напомнить наставнику по Java о встрече и т.д. Когда мы вычёркиваем дельце из списка, у нас происходит выработка дофамина. Таким образом, мы как бы тренируем свой мозг — хочешь получить удовольствие, сделай задачу и вычеркни её. Поэтому рекомендуется записывать и выполнять даже мелкие таски.</h2><h4 id="otkazhis-ot-lishnego">Откажись от лишнего</h4><h2>Ещё раз внимательно просмотри список своих задач. Тебе точно надо вот прямо сейчас осваивать ещё один язык программирования, или это влияние друзей-айтишников? Кто знает, может, ты единственный питонист среди них, а все они рубисты.</h2><h4 id="znamenitoe-poedanie-slona-po-kusochkam">Знаменитое «поедание слона по кусочкам»</h4><h2>Представь, что твоя задача — один большой слон. Целиком его заглотить не получится, поэтому режем нашего слоника на кусочки, и приступаем к аккуратной и продуманной трапезе. 1 кусок — 1 дедлайн. Так, разбив одну большую задачу на несколько более мелких, ты и сам не заметишь, как справишься с ней.</h2><h4 id="motivatsiya-sebya">Мотивация себя</h4><h2>Замени фразу «я должен» на «я сделаю это, потому что…». Всегда держи в фокусе конечную цель — то, что ты желаешь получить по итогу. </h2><h4 id="trenirovka-sily-voli">Тренировка силы воли</h4><h2>Это, пожалуй, самый важный аспект. Есть риск, что мы можем дать слабину и свернуть не на ту дорожку, выполняя предыдущие пункты. Чтобы этого не случилось — нужна воля.</h2><h2>Сила воли — не бесконечный ресурс, поэтому мы доводим нужные нам привычки до автоматизма, а для этого привычку надо создать. С точки зрения нейробиологии это выглядит так: по своей нейронной цепочке мы очень часто прогоняем одно и то же действие. Это анатомически меняет наш мозг, создавая закрепленные действия.</h2><p>А чтобы сила воли всегда оставалась в тонусе, вот вам ещё парочка простых правил:</p>
+    <ul>
+        <li>Здоровый сон (не менее 7-8 часов);</li>
+        <li>Здоровое питание;</li>
+        <li>Спорт или активность без гаджетов;</li>
+    </ul>
+    <h3>Также рекомендуем вам заглянуть в полезные статьи и видео на тему прокрастинации:</h3>
+    <ul>
+        <li><a href="https://www.youtube.com/watch?v=p9qBLKHG8Vw" target="_blank" rel="nofollow">Ася Казанцева: Не забудьте побездельничать!</a></li>
+        <li><a href="https://www.cci.health.wa.gov.au/-/media/CCI/Mental-Health-Professionals/Procrastination/Procrastination---Information-Sheets/Procrastination-Information-Sheet---07---Procrastination-Action-Plan.pdf" target="_blank" rel="nofollow">Procrastination Action Plan</a></li>
+    </ul>
+    <h3></h3><div class="hexlet-blog-custom-quote"></div><p></p>
+    <blockquote>
+        <h3><em class="h3 d-block fst-normal">Никогда не останавливайтесь:</em>
+            В программировании говорят, что нужно постоянно учиться даже для того, чтобы просто находиться на месте. Развивайтесь с нами — на Хекслете есть <a href="https://ru.hexlet.io/courses?from=blog" target="_blank">сотни курсов по разработке на разных языках и технологиях</a>.</h3></blockquote>
+
+</div>
+</body>
+</html>

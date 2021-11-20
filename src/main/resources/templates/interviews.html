@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Interviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="http://localhost:8088/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="https://mydiscoveries.ru/">Статьи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/stories">Истории успеха</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Для студента
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="https://javarush.ru/internship">Стажировка от Java-Rush</a></li>
+                        <li><a class="dropdown-item" href="/educationalMaterial">Образовательный материал</a></li>
+                        <li><a class="dropdown-item" href="/interviews">Собеседования</a></li>
+                        <li><a class="dropdown-item" href="/nauchpop">Научпоп</a></li>
+                        <li><a class="dropdown-item" href="https://pogoda.mail.ru/country/kyrgyzstan/">Погода</a></li>
+                        <!--                            <li><a class="dropdown-item" href="https://pdf.io/ru/pdf2doc/">Онлайн конвертер документов</a></li>-->
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/blog" tabindex="-1">Блог</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input id="searchMainPageInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="searchMainPageButton" class="btn btn-warning" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-auto text-lg-end py-2 py-lg-0">
+        <button type="button" class="btn btn-primary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#exampleModal">Вход</button>
+        <!-- Modal for Autorization -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Authorization</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/login">
+                            <div class="mb-3">
+                                <label for="SignInUsername" class="form-label">Имя пользователя</label>
+                                <input type="text" placeholder="Username" class="form-control"
+                                       id="SignInUsername" name="username">
+                                <div id="emailHelp" class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="SignInPassword" class="form-label">Пароль</label>
+                                <input type="password" placeholder="Password" class="form-control"
+                                       id="SignInPassword" name="password"><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="remember-me">
+                                    <label class="form-check-label" for="flexCheckDefault">Запомнить пароль</label>
+                                </div><br>
+                                <div class="button-in">
+                                    <button type="submit" class="btn btn-warning">Войти</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistration">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END modal-->
+        <a class="btn btn-outline-secondary" data-bs-toggle="modal" sec:authorize="isAnonymous()" data-bs-target="#modalRegistration">Регистрация</a>
+        <!-- Modal -->
+        <div class="modal fade" id="modalRegistration"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Registration</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="add-user" id="myForm">
+                            <div class="text-center">
+                                <div class="form-group">
+                                    <label for="name">First name</label><br>
+                                    <input type="text" id="name"><br>
+                                    <br>
+                                    <label for="lastName">Last name</label><br>
+                                    <input type="text" id="lastName"/><br/>
+                                    <br>
+                                    <label for="nickname">Nickname</label><br>
+                                    <input type="text" id="nickname"/><br/>
+                                    <br>
+                                    <label for="birthDate">Birthdate</label><br>
+                                    <input type="text" id="birthDate"/><br/>
+                                    <br>
+                                    <label for="country">Country</label><br>
+                                    <input type="text" id="country"/><br/>
+                                    <br>
+                                    <label for="details">Details</label><br>
+                                    <input type="text" id="details"/><br/>
+                                    <br>
+                                    <label for="mail">Mail</label><br>
+                                    <input type="email" id="mail"/><br/>
+                                    <br>
+                                    <label for="password">Password</label><br>
+                                    <input type="password" id="password"/><br/>
+                                    <br>
+                                    <div> <!-- For select (roles) -->
+                                        <p style="color: black">Role</p>
+                                        <select id="selectedRoles" multiple required size="3">
+                                            <div th:each="role : ${AllRoles}">
+                                                <option th:text="${role.getRole()}" th:value="${role.getId()}"></option>
+                                            </div>
+                                        </select>
+                                    </div> <!-- End roles select -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="addUser" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-outline-danger" sec:authorize="isAuthenticated()" href="/logout">Выйти</a>
+    </div>
+</nav>
+<!-- END NAVBAR -->
+<h1>Задаём вопросы фронтенд-разработчику: собеседование в прямом эфире</h1>
+<img src="https://cdn2.hexlet.io/store/derivatives/1931e9a3c9f05a995102dc93c030f080/fill_webp-850-400.webp">
+<div class="hexlet-blog-post-body" style="display: block">
+    <h2><strong>Какие вопросы задают на собеседовании фронтенд-разработчикам? Что спрашивают, если в твоём резюме указаны строчки про Vue.js и React? Как реагирует работодатель, если в твоём резюме указаны условия, с которыми ты не согласен работать?</strong></h2>
+    <ul><li><a class="text-dark" href="#deystvuyuschie-litsa">Действующие лица</a></li>
+    <li><a class="text-dark" href="#poleznye-ssylki">Полезные ссылки</a></li></ul>
+    <h2><strong>14 сентября в 19:00</strong> по московскому времени на youtube-канале Хекслета начнётся собеседование в прямом эфире. Ссылка на трансляцию:
+        <a href="https://youtu.be/PgQ4Bn8g4Fg" target="_blank">https://youtu.be/PgQ4Bn8g4Fg</a>. По этой же ссылке будет доступна запись. Все слушатели могут принять участие в обсуждении собеседования, предлагать свои решения задач и ответы на вопросы в youtube-чате.
+    </h2><p></p><div class="ratio ratio-16x9"><iframe width="50%" height="90%" src="//www.youtube.com/embed/PgQ4Bn8g4Fg"></iframe></div><p></p><h3 id="deystvuyuschie-litsa">Действующие лица</h3>
+    <ul>
+        <li><strong>Интервьюер:</strong> Илья Климов, Senior Frontend Engineer @ GitLab (<a href="https://twitter.com/xanf_ua" target="_blank">https://twitter.com/xanf_ua</a>)</li>
+        <li><strong>Кандидат:</strong> Лена Райан, Frontend-разработчик (<a href="https://twitter.com/metalwebdev" target="_blank">https://twitter.com/metalwebdev</a>). Резюме кандидата: <a href="https://hh.ru/resume/0d545cccff03be5d670039ed1f6e586e765446" target="_blank">https://hh.ru/resume/0d545cccff03be5d670039ed1f6e586e765446</a></li>
+    </ul>
+    <p>Публичное собеседование – это формат эфира, где в онлайне проводится учебное собеседование. Оно проводится в режиме реального времени без заранее заготовленного сценария. Вопросы могут быть совершенно разными, а ход собеседования модерируется экспертом. Интервьюер – разработчик с опытом проведения собеседований. Его задача выявить потенциал кандидата в условиях, близких к реальному карьерному интервью. Кандидат – чаще всего джуниор или миддл, отвечает на вопросы и таким образом проверяет себя. </p><h3 id="poleznye-ssylki">Полезные ссылки</h3>
+    <ul>
+        <li><a href="https://slack-ru.hexlet.io/" target="_blank">Комьюнити Хекслета</a></li>
+        <li><a href="https://youtube.com/playlist?list=PLo6puixMwuSOa_0EH6X4OXzFAmyQGS3a3" target="_blank" rel="nofollow">Публичные собеседования Хекслета</a></li>
+    </ul>
+
+</div>
+</body>
+</html>

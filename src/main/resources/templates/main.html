@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <title>My Space</title>
+    <link href="css/main.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://localhost:8088/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="https://mydiscoveries.ru/">Статьи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stories">Истории успеха</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Для студента
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://javarush.ru/internship">Стажировка от Java-Rush</a></li>
+                            <li><a class="dropdown-item" href="/educationalMaterial">Образовательный материал</a></li>
+                            <li><a class="dropdown-item" href="/interviews">Собеседования</a></li>
+                            <li><a class="dropdown-item" href="/nauchpop">Научпоп</a></li>
+                            <li><a class="dropdown-item" href="https://pogoda.mail.ru/country/kyrgyzstan/">Погода</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/blog" tabindex="-1">Блог</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input id="searchMainPageInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button id="searchMainPageButton" class="btn btn-warning" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-auto text-lg-end py-2 py-lg-0">
+            <button type="button" class="btn btn-primary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#exampleModal">Вход</button>
+            <!-- Modal for Autorization -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Authorization</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/login">
+                                <div class="mb-3">
+                                    <label for="SignInUsername" class="form-label">Имя пользователя</label>
+                                    <input type="text" placeholder="Username" class="form-control"
+                                           id="SignInUsername" name="username">
+                                    <div id="emailHelp" class="form-text"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="SignInPassword" class="form-label">Пароль</label>
+                                    <input type="password" placeholder="Password" class="form-control"
+                                           id="SignInPassword" name="password"><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="remember-me">
+                                        <label class="form-check-label" for="flexCheckDefault">Запомнить пароль</label>
+                                    </div><br>
+                                    <div class="button-in">
+                                        <button type="submit" class="btn btn-warning">Войти</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistration">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END modal-->
+            <a class="btn btn-outline-secondary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#modalRegistration">Регистрация</a>
+            <!-- Modal -->
+            <div class="modal fade" id="modalRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Registration</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="add-user" id="myForm">
+                                <div class="text-center">
+                                    <div class="form-group">
+                                        <label for="name">First name</label><br>
+                                        <input type="text" id="name"><br>
+                                        <br>
+                                        <label for="lastName">Last name</label><br>
+                                        <input type="text" id="lastName"/><br/>
+                                        <br>
+                                        <label for="nickname">Nickname</label><br>
+                                        <input type="text" id="nickname"/><br/>
+                                        <br>
+                                        <label for="birthDate">Birthdate</label><br>
+                                        <input type="text" id="birthDate"/><br/>
+                                        <br>
+                                        <label for="country">Country</label><br>
+                                        <input type="text" id="country"/><br/>
+                                        <br>
+                                        <label for="details">Details</label><br>
+                                        <input type="text" id="details"/><br/>
+                                        <br>
+                                        <label for="mail">Mail</label><br>
+                                        <input type="email" id="mail"/><br/>
+                                        <br>
+                                        <label for="password">Password</label><br>
+                                        <input type="password" id="password"/><br/>
+                                        <br>
+                                        <div> <!-- For select (roles) -->
+                                            <p style="color: black">Role</p>
+                                            <select id="selectedRoles" multiple required size="3">
+                                                <div th:each="role : ${AllRoles}">
+                                                    <option th:text="${role.getRole()}" th:value="${role.getId()}"></option>
+                                                </div>
+                                            </select>
+                                        </div> <!-- End roles select -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="addUser" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-outline-danger" sec:authorize="isAuthenticated()" href="/logout">Выйти</a>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <h3>Последние публикации</h3>
+    <div class="container-fluid item-container">
+
+    </div>
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script><br>
+    <h2 class="text-center">Контакты</h2>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-4 mt-3">
+            <div class="row h-100">
+                <div class="col-2 text-end">
+                    <img src="images/Slack.png">
+                </div>
+                <div class="col-10 d-flex flex-column h-100">
+                    <h2 class="h5">Slack</h2>
+                    <p class="text-muted">Чат участников проекта. Обсуждение, программирования и помощь</p>
+                    <div class="mt-auto"><a target="_blank" rel="noopener" class="link-dark" href="https://join.slack.com/t/forum-portal/shared_invite/zt-zecyurog-5YcYgwVpUCH0Z0y7NCcfeA">Присоединиться</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 mt-3">
+            <div class="row h-100">
+                <div class="col-2 text-end">
+                    <img src="images/Vk.png">
+                </div>
+                <div class="col-10 d-flex flex-column h-100">
+                    <h2 class="h5">ВКонтакте</h2>
+                    <p class="text-muted">По личным вопросам</p>
+                    <div class="mt-auto"><a target="_blank" rel="noopener" class="link-dark" href="https://vk.com/zhalal">Написать</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 mt-3">
+            <div class="row h-100">
+                <div class="col-2 text-end">
+                    <img src="images/Youtube.png">
+                </div>
+                <div class="col-10 d-flex flex-column h-100">
+                    <h2 class="h5">Youtube</h2>
+                    <p class="text-muted">Вебинары, обучающие видео, обсуждение насущных вопросов, интервью с известными людьми</p>
+                    <div class="mt-auto"><a target="_blank" rel="noopener" class="link-dark" href="https://www.youtube.com/user/HexletUniversity">Посмотреть</a></div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <footer class="bg-light border-top py-4 mt-auto">
+        <div class="container-xl">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 pt-3">
+                <div class="col">
+                    <ul class="nav flex-column align-items-start">
+                        <li>
+                            <a class="nav-link text-muted px-0" href="/pages/about">О проекте</a>
+                        </li>
+                    </ul>
+                    <p class="mt-3 text-muted">
+                        <span class="d-block">Forum-portal</span>
+                        <span class="d-block">Kyrgyzstan, Russian, Helsinki, Finland</span>
+                    </p>
+                    <ul class="nav flex-column align-items-start">
+                        <li>
+                            <a class="nav-link text-muted px-0" href="#">Условия использования</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-muted px-0" href="#">Политика конфиденциальности</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <span class="lead fw-normal d-block">
+                    <a class="text-muted text-decoration-none" href="tel:8%20800%20333%2057%2004">+996 551 31 50 51</a>
+                    </span>
+                        <span class="d-block text-muted">Звонок по КР бесплатный</span>
+                        <span class="lead fw-normal mt-2 d-block">
+                    </span>
+                    <div class="fw-bold mt-4 mb-2">Помощь</div>
+                    <ul class="nav flex-column align-items-start">
+                        <li>
+                            <a class="nav-link text-muted px-0" target="_blank" rel="noopener noreferrer" href="#">Справка</a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" class="nav-link text-muted px-0" href="mailto:tzhalal@mail.ru">tzhalal@mail.ru</a>
+                        </li>
+                    </ul>
+                    <div class="fw-bold mt-3 mb-2">Компаниям</div>
+                    <ul class="nav flex-column align-items-start">
+                        <li>
+                            <a class="nav-link text-muted px-0" href="/#">Forum-portal для компаний</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <div class="fw-bold">Полезно</div>
+                    <ul class="nav flex-column align-items-start">
+                        <li class="nav-item">
+                            <a class="nav-link text-muted px-0" href="/#">Вопросы и ответы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-muted px-0" href="/#">Рекомендуемые книги</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-muted px-0" target="_blank" rel="noopener noreferrer" href="https://ru.code-basics.com/">Code Basics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-muted px-0" target="_blank" rel="noopener noreferrer" href="https://codebattle.hexlet.io">Code Battle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-muted px-0" target="_blank" rel="noopener noreferrer" href="https://guides.hexlet.io/">Hexlet Guides</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-muted px-0" href="/categories/sandbox/courses">Песочница</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Истории успеха</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://localhost:8088/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="https://mydiscoveries.ru/">Статьи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stories">Истории успеха</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Для студента
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://javarush.ru/internship">Стажировка от Java-Rush</a></li>
+                            <li><a class="dropdown-item" href="/educationalMaterial">Образовательный материал</a></li>
+                            <li><a class="dropdown-item" href="/interviews">Собеседования</a></li>
+                            <li><a class="dropdown-item" href="/nauchpop">Научпоп</a></li>
+                            <li><a class="dropdown-item" href="https://pogoda.mail.ru/country/kyrgyzstan/">Погода</a></li>
+                            <!--                            <li><a class="dropdown-item" href="https://pdf.io/ru/pdf2doc/">Онлайн конвертер документов</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/blog" tabindex="-1">Блог</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input id="searchMainPageInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button id="searchMainPageButton" class="btn btn-warning" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-auto text-lg-end py-2 py-lg-0">
+            <button type="button" class="btn btn-primary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#exampleModal">Вход</button>
+            <!-- Modal for Autorization -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Authorization</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/login">
+                                <div class="mb-3">
+                                    <label for="SignInUsername" class="form-label">Имя пользователя</label>
+                                    <input type="text" placeholder="Username" class="form-control"
+                                           id="SignInUsername" name="username">
+                                    <div id="emailHelp" class="form-text"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="SignInPassword" class="form-label">Пароль</label>
+                                    <input type="password" placeholder="Password" class="form-control"
+                                           id="SignInPassword" name="password"><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="remember-me">
+                                        <label class="form-check-label" for="flexCheckDefault">Запомнить пароль</label>
+                                    </div><br>
+                                    <div class="button-in">
+                                        <button type="submit" class="btn btn-warning">Войти</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistration">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END modal-->
+            <a class="btn btn-outline-secondary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#modalRegistration">Регистрация</a>
+            <!-- Modal -->
+            <div class="modal fade" id="modalRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Registration</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="add-user" id="myForm">
+                                <div class="text-center">
+                                    <div class="form-group">
+                                        <label for="name">First name</label><br>
+                                        <input type="text" id="name"><br>
+                                        <br>
+                                        <label for="lastName">Last name</label><br>
+                                        <input type="text" id="lastName"/><br/>
+                                        <br>
+                                        <label for="nickname">Nickname</label><br>
+                                        <input type="text" id="nickname"/><br/>
+                                        <br>
+                                        <label for="birthDate">Birthdate</label><br>
+                                        <input type="text" id="birthDate"/><br/>
+                                        <br>
+                                        <label for="country">Country</label><br>
+                                        <input type="text" id="country"/><br/>
+                                        <br>
+                                        <label for="details">Details</label><br>
+                                        <input type="text" id="details"/><br/>
+                                        <br>
+                                        <label for="mail">Mail</label><br>
+                                        <input type="email" id="mail"/><br/>
+                                        <br>
+                                        <label for="password">Password</label><br>
+                                        <input type="password" id="password"/><br/>
+                                        <br>
+                                        <div> <!-- For select (roles) -->
+                                            <p style="color: black">Role</p>
+                                            <select id="selectedRoles" multiple required size="3">
+                                                <div th:each="role : ${AllRoles}">
+                                                    <option th:text="${role.getRole()}" th:value="${role.getId()}"></option>
+                                                </div>
+                                            </select>
+                                        </div> <!-- End roles select -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="addUser" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-outline-danger" sec:authorize="isAuthenticated()" href="/logout">Выйти</a>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <h1>История успеха — как стать программистом в Польше</h1>
+    <img src="https://cdn2.hexlet.io/store/derivatives/629db2a321e830dd1eb0a7305e757a1e/fill_webp-850-400.webp">
+    <div class="hexlet-blog-post-body">
+        <p><strong>Привет! Меня зовут Денис и мне 29 лет. Это моя история успеха — как стать программистом в Польше.</strong></p><h2 id="pereezd-v-polshu">Переезд в Польшу</h2><p>Моя история начинается с переезда из Украины в Польшу, где я устроился обивщиком на мебельную фабрику. Прожив так около четырех лет и подучив язык до хорошего уровня, мне начала надоедать однообразная, рутинная работа. И я понял, что нужно или развиваться в мебельном производстве, или менять род деятельности. Сначала я даже пробовал открыть свою фирму по реставрации мебели. Но прошло около года и я осознал, что это тоже не мое. </p><p>Как раз в это время моя знакомая, Таня, думала, куда подать документы своего сына после окончания школы. Я посоветовал пробоваться в IT, так как это самая перспективная отрасль, но Таня была против. Убеждая ее, я сам заинтересовался и решил подыскать хорошие курсы. Так как у меня абсолютно не было никакого опыта в программировании, я искал в первую очередь курсы, на которых материал подан просто и понятно, — но чаще всего попадал на такие, где материал подан сухо, либо нужно было просто повторять за наставником без понимания, что вообще здесь происходит, типа когда-то дойдет. Первые собеседования</h2><p>После сдачи двух JS-проектов я начал подавать резюме, но отклика не было, пока в моем репозитории не появился третий фронтенд- и четвертый бэкенд-проекты. На первом интервью я не всегда понимал, что от меня хотят — использовались некоторые термины на польском, которых значения я не знал, ну и плюс непередаваемое волнение. Несколько интервью придали уверенности и качнули навык их прохождения.</p><p></p><div class="hexlet-blog-custom-quote"></div><p></p>
+        <blockquote>
+            <p><em class="h3 d-block fst-normal">Составьте свое первое резюме:</em>
+                Вы можете бесплатно опубликовать свое резюме в нашем сервисе <a href="https://cv.hexlet.io/" target="_blank">«Хекслет-CV»</a> и получить советы по его улучшению от разработчиков и HR-менеджеров</p></blockquote>
+        <p>В итоге после пятого собеседования меня пригласили на испытательный срок в небольшую компанию, которая находилась в 150 км от моего дома, и в ней работали всего три программиста. Я был безмерно рад, что предстоит решать реальные боевые задачи, и очень взволнован первые пару дней. Но буквально через несколько дней я понял, что нужно линять. Почему? Запросы в БД отправлялись с верстки, код был написан как попало — на уровне первых ошибок в первом проекте. Однажды я увидел, что коллега поправляет в коде руками пробелы. Я у него спросил, почему он не использует линтер — оказалось, что он просто не знал о существовании такого инструмента. Самое плохое для меня было, что там не было опытного человека, который мог бы делится знаниями, подсказать и направить.</p><p>На следующей неделе у меня было назначено новое собеседование, уже в корпорацию. Собеседование я прошел, можно сказать, идеально. Меня интервьюировали четыре человека. Интервьюер в конце разговора сказал, что несколько десятков человек с формальным опытом работы, которых они собеседовали, так хорошо не отвечали на его вопросы. После чего я сослался на курсы Хекслета, и ведущий интервью был очень заинтересован, нет ли их на польском языке. </p><p>Единственный вопрос на собеседовании, на который я не дал ответ — чем занимается эта корпорация. В итоге меня в тот же день пригласили на работу на позицию Junior Full Stack developer, на проект с основным стеком технологий из Vue, Express и PostgreSQL<h2>Маленькие советы и дополнительное обучение</h2><p>На Хекслете хочу отдельно выделить проекты с наставником — именно они больше всего прокачивают и дают поддержку ментора, которому можно задать абсолютно любой вопрос, пройтись по теме, где у тебя возникает больше всего непонимания. </p><p>В свободное время я читал <a href="https://ru.hexlet.io/pages/recommended-books" target="_blank">рекомендованные Хекслетом книги</a>: «Цель»,  «Код. Тайный язык информатики»,  «Грокаем алгоритмы»,  «Операционная система UNIX» (начал читать), «Гарри Поттер и методы рационального мышления» (не про программирование, но захватывающая книга). Конечно же, я смотрел встречи на <a href="https://www.youtube.com/channel/UCqLPYxuAz-WbdEBLBk_Tb7g" target="_blank" rel="nofollow">Youtube-канале</a> Хекслета, чтобы вникать в происходящее в IT-сфере, слушать выбранных вами людей, перенимать их опыт и взять их лучшие практики.</p><p><em>Огромное спасибо команде Хекслета — особенно Кириллу, ментору Сергею и наставнику Ивану.</em></p><p></p><div class="hexlet-blog-custom-quote"></div><p></p>
+        <blockquote>
+            <p><em class="h3 d-block fst-normal">Никогда не останавливайтесь:</em>
+                В программировании говорят, что нужно постоянно учиться даже для того, чтобы просто находиться на месте. Развивайтесь с нами — на Хекслете есть <a href="https://ru.hexlet.io/courses?from=blog" target="_blank">сотни курсов по разработке на разных языках и технологиях</a></p></blockquote>
+
+    </div>
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script><br>
+</body>
+</html>
