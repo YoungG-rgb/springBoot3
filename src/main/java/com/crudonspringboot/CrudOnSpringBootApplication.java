@@ -8,6 +8,7 @@ public class CrudOnSpringBootApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CrudOnSpringBootApplication.class, args);
+        System.err.println("    APP START");
     }
 
 }

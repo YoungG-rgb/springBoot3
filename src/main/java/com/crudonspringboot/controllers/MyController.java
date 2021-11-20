@@ -1,7 +1,7 @@
 package com.crudonspringboot.controllers;
 
-import com.crudonspringboot.service.RoleService;
-import com.crudonspringboot.service.UserService;
+import com.crudonspringboot.service.Service.RoleService;
+import com.crudonspringboot.service.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,5 +30,30 @@ public class MyController {
     public String getUserPage(Principal principal, Model model) {
         model.addAttribute("currentUser",userService.loadUserByUsername(principal.getName()));
         return "/user/userPage";
+    }
+
+    @GetMapping("/stories")
+    public String getStories(){
+        return "stories";
+    }
+
+    @GetMapping("/educationalMaterial")
+    public String getMaterial(){
+        return "educationalMaterial";
+    }
+
+    @GetMapping("/interviews")
+    public String getInterviews(){
+        return "interviews";
+    }
+
+    @GetMapping("/nauchpop")
+    public String getNauchpop(){
+        return "nauchpop";
+    }
+
+    @GetMapping("/blog")
+    public String getBlog(){
+        return "blog";
     }
 }

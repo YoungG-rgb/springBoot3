@@ -25,8 +25,11 @@ function createRows(user) {
     user_data += '<td>' + user.id + '</td>';
     user_data += '<td>' + user.name + '</td>';
     user_data += '<td>' + user.lastName + '</td>';
-    user_data += '<td>' + user.age + '</td>';
-    user_data += '<td>' + user.login + '</td>';
+    user_data += '<td>' + user.nickname + '</td>';
+    user_data += '<td>' + user.birthDate + '</td>';
+    user_data += '<td>' + user.country + '</td>';
+    user_data += '<td>' + user.mail + '</td>';
+    user_data += '<td>' + user.details + '</td>';
     user_data += '<td>';
     let roles = user.roles;
     for (let r of roles) {
@@ -60,8 +63,11 @@ $("#addUser").on('click', () => {
         data: JSON.stringify({
             name: $('#name').val(),
             lastName: $('#lastName').val(),
-            age: $('#age').val(),
-            login: $('#login').val(),
+            nickname: $('#nickname').val(),
+            birthDate: $('#birthDate').val(),
+            country : $('#country').val(),
+            details : $('#details').val(),
+            mail : $('#mail').val(),
             password: $('#password').val(),
             roles: array
         }),
@@ -85,8 +91,11 @@ function editUserById(id) {
                 $('#editId').val(user.id);
                 $('#editName').val(user.name);
                 $('#editLastName').val(user.lastName);
-                $('#editAge').val(user.age);
-                $('#editLogin').val(user.login);
+                $('#editNickname').val(user.nickname);
+                $('#editmail').val(user.mail);
+                $('#editBirthdate').val(user.birthDate);
+                $('#editDetails').val(user.details);
+                $('#editCountry').val(user.country);
                 $('#editPassword').empty();
                 $('#editRole').empty();
                 roleList.map(r => {
@@ -122,8 +131,11 @@ $('#update').on('click', (event) => {
             id: $("input[name='id']").val(),
             name: $("input[name='name']").val(),
             lastName: $("input[name='lastName']").val(),
-            age: $("input[name='age']").val(),
-            login: $("input[name='login']").val(),
+            nickname: $("input[name='nickname']").val(),
+            details: $("input[name='details']").val(),
+            country: $("input[name='country']").val(),
+            mail: $("input[name='mail']").val(),
+            birthDate: $("input[name='birthDate']").val(),
             password: $("input[name='password']").val(),
             roles: array
         }),
@@ -141,9 +153,12 @@ $(document).on('click', '.del-btn', function () {
             response.json().then((user) => {
                 $('#delId').val(user.id);
                 $('#delName').val(user.name);
-                $('#delLastName').val(user.lastName);
-                $('#delAge').val(user.age);
-                $('#delLogin').val(user.login);
+                $('#delLastname').val(user.lastName);
+                $('#delBirthdate').val(user.birthDate);
+                $('#delCountry').val(user.country);
+                $('#delDetails').val(user.details);
+                $('#delNickname').val(user.nickname);
+                $('#delMail').val(user.mail);
                 $('#delPassword').val(user.password);
                 $('#delRole').empty();
                 roleList.map(r => {
@@ -160,7 +175,7 @@ $('#delete').on('click', (event) => {
         url: '/api/admin/' + $('#delId').val(),
         method: 'DELETE',
         success: function () {
-            $('#' + $('#delId').val()).remove();
+            $('#listUsers').find('#' + $('#delId').val()).remove();
         }
     });
 });

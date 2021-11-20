@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8">
     <title>Here users page</title>
@@ -10,69 +10,198 @@
     <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid" style="background: rgba(6,16,20,0.85); color: white;">
-        <div class="row">
-            <div class="col-11" style="font-size: larger">
-                <tr th:each="user : ${currentUser}">
-                    <b><td th:text="${user.getLogin()}"></td></b>
-                    with roles:
-                    <!-- Trouble in here -->
-                    <td th:text="${user.getRoles().stream().findAny().orElse(null)}"></td>
-                </tr>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://localhost:8088/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="https://mydiscoveries.ru/">Статьи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stories">Истории успеха</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Для студента
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://javarush.ru/internship">Стажировка от Java-Rush</a></li>
+                            <li><a class="dropdown-item" href="/educationalMaterial">Образовательный материал</a></li>
+                            <li><a class="dropdown-item" href="/interviews">Собеседования</a></li>
+                            <li><a class="dropdown-item" href="/nauchpop">Научпоп</a></li>
+                            <li><a class="dropdown-item" href="https://pogoda.mail.ru/country/kyrgyzstan/">Погода</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/blog" tabindex="-1">Блог</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input id="searchMainPageInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button id="searchMainPageButton" class="btn btn-warning" type="submit">Search</button>
+                </form>
             </div>
-            <div class="col-1">
-                <a href="/logout" style="color: darkgray">Logout</a>
-            </div>
-        </div> <!-- End ceil row-->
-        <div class="row" style="background-color: white">
-            <div class="d-flex align-items-start">
-                <div class="col-2" style="padding: 20px">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
-                    </div>
-                </div> <!-- End col-2 -->
-                <div class="col-10 bg-light vh-100" style="background-color: #f5f5f5; padding: 20px 30px">
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <!-- User content-->
-                        <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                            <h1 style="color: black">User information-page</h1>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h2 style="color: black">About user</h2>
+        </div>
+        <div class="col-auto text-lg-end py-2 py-lg-0">
+            <button type="button" sec:authorize="isAnonymous()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Вход</button>
+            <!-- Modal for Autorization -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Authorization</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/login">
+                                <div class="mb-3">
+                                    <label for="SignInUsername" class="form-label">Имя пользователя</label>
+                                    <input type="text" placeholder="Username" class="form-control"
+                                           id="SignInUsername" name="username">
+                                    <div id="emailHelp" class="form-text"></div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="card-text">
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Age</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="u : ${currentUser}">
-                                                <td th:text="${u.getId()}"></td>
-                                                <td th:text="${u.getName()}"></td>
-                                                <td th:text="${u.getLastName()}"></td>
-                                                <td th:text="${u.getAge()}"></td>
-                                                <td th:text="${u.getLogin()}"></td>
-                                                <td th:text="${u.getRoles()}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                <div class="mb-3">
+                                    <label for="SignInPassword" class="form-label">Пароль</label>
+                                    <input type="password" placeholder="Password" class="form-control"
+                                           id="SignInPassword" name="password"><br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="remember-me">
+                                        <label class="form-check-label" for="flexCheckDefault">Запомнить пароль</label>
+                                    </div><br>
+                                    <div class="button-in">
+                                        <button type="submit" class="btn btn-warning">Войти</button>
                                     </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalRegistration">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END modal-->
+            <a class="btn btn-outline-secondary" sec:authorize="isAnonymous()" data-bs-toggle="modal" data-bs-target="#modalRegistration">Регистрация</a>
+            <a class="btn btn-outline-danger" sec:authorize="isAuthenticated()" href="/logout">Выйти</a>
+            <!-- Modal -->
+            <div class="modal fade" id="modalRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Registration</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="add-user" id="myForm">
+                                <div class="text-center">
+                                    <div class="form-group">
+                                        <label for="name">First name</label><br>
+                                        <input type="text" id="name"><br>
+                                        <br>
+                                        <label for="lastName">Last name</label><br>
+                                        <input type="text" id="lastName"/><br/>
+                                        <br>
+                                        <label for="nickname">Nickname</label><br>
+                                        <input type="text" id="nickname"/><br/>
+                                        <br>
+                                        <label for="birthDate">Birthdate</label><br>
+                                        <input type="text" id="birthDate"/><br/>
+                                        <br>
+                                        <label for="country">Country</label><br>
+                                        <input type="text" id="country"/><br/>
+                                        <br>
+                                        <label for="details">Details</label><br>
+                                        <input type="text" id="details"/><br/>
+                                        <br>
+                                        <label for="mail">Mail</label><br>
+                                        <input type="email" id="mail"/><br/>
+                                        <br>
+                                        <label for="password">Password</label><br>
+                                        <input type="password" id="password"/><br/>
+                                        <br>
+                                        <div> <!-- For select (roles) -->
+                                            <p style="color: black">Role</p>
+                                            <select id="selectedRoles" multiple required size="3">
+                                                <div th:each="role : ${AllRoles}">
+                                                    <option th:text="${role.getRole()}" th:value="${role.getId()}"></option>
+                                                </div>
+                                            </select>
+                                        </div> <!-- End roles select -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="addUser" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <div class="row" style="background-color: white">
+        <div class="d-flex align-items-start">
+            <div class="col-2" style="padding: 20px">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
+                </div>
+            </div> <!-- End col-2 -->
+            <div class="col-10 bg-light vh-100" style="background-color: #f5f5f5; padding: 20px 30px">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <!-- User content-->
+                    <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <h1 style="color: black">User information-page</h1>
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 style="color: black">About user</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>NickName</th>
+                                            <th>Birthdate</th>
+                                            <th>Email</th>
+                                            <th>Country</th>
+                                            <th>Role</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="u : ${currentUser}">
+                                            <td th:text="${u.getName()}"></td>
+                                            <td th:text="${u.getLastName()}"></td>
+                                            <td th:text="${u.getNickname()}"></td>
+                                            <td th:text="${u.getBirthDate()}"></td>
+                                            <td th:text="${u.getMail()}"></td>
+                                            <td th:text="${u.getCountry()}"></td>
+                                            <td th:text="${u.getRoles()}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div> <!--   End all content -->
-                </div> <!--   End col-10 -->
-            </div> <!--   End (d-flex align-items-start) -->
-        </div> <!--    End second row    -->
+                    </div>
+                </div> <!--   End all content -->
+            </div> <!--   End col-10 -->
+        </div> <!--   End (d-flex align-items-start) -->
+    </div> <!--    End second row    -->
     </div> <!--    End container (for rows)   -->
+
 
     <!-- Scripts -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>

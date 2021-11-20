@@ -1,7 +1,8 @@
-package com.crudonspringboot.service;
+package com.crudonspringboot.service.ServiceImpl;
 
 import com.crudonspringboot.repository.UserRepository;
 import com.crudonspringboot.models.User;
+import com.crudonspringboot.service.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.getUserByLogin(s);
+        User user = userRepository.getUserByNickname(s);
         if (user == null){
             throw new UsernameNotFoundException("USERNAME IS NULL");
         }

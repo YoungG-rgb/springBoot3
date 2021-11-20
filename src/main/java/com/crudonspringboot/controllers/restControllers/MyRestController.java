@@ -1,9 +1,9 @@
-package com.crudonspringboot.controllers;
+package com.crudonspringboot.controllers.restControllers;
 
 import com.crudonspringboot.models.Role;
 import com.crudonspringboot.models.User;
-import com.crudonspringboot.service.RoleService;
-import com.crudonspringboot.service.UserService;
+import com.crudonspringboot.service.Service.RoleService;
+import com.crudonspringboot.service.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

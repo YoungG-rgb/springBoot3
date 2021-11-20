@@ -1,4 +1,4 @@
-package com.crudonspringboot.service;
+package com.crudonspringboot.service.Service;
 
 
 import com.crudonspringboot.models.User;

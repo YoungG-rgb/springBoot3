@@ -1,15 +1,16 @@
-package com.crudonspringboot.service;
+package com.crudonspringboot.service.ServiceImpl;
 
 
 import com.crudonspringboot.repository.RoleRepository;
 import com.crudonspringboot.models.Role;
+import com.crudonspringboot.service.Service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 

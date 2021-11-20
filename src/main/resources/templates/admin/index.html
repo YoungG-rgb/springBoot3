@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-11" style="font-size: larger">
             <tr th:each="us : ${currentUser}">
-                <b><td th:text="${us.getLogin()}"></td></b>
+                <b><td th:text="${us.getNickname()}"></td></b>
                 with roles:
                 <!-- Trouble here maybe -->
                 <td th:text="${us.getRoles()}"></td>
@@ -64,8 +64,11 @@
                                                         <th>Id</th>
                                                         <th>First Name</th>
                                                         <th>Last Name</th>
-                                                        <th>Age</th>
+                                                        <th>NickName</th>
+                                                        <th>Birhdate</th>
+                                                        <th>Country</th>
                                                         <th>Email</th>
+                                                        <th>Details</th>
                                                         <th>Role</th>
                                                         <th>Edit</th>
                                                         <th>Delete</th>
@@ -93,14 +96,20 @@
                                                                                 <input type="text" name="name" id="editName" /><br><br>
                                                                                 <label for="editLastName">Last name</label><br>
                                                                                 <input type="text" name="lastName" id="editLastName" /><br><br>
-                                                                                <label for="editAge">Age</label><br>
-                                                                                <input type="number" name="age" id="editAge" /><br><br>
-                                                                                <label for="editLogin">Email</label><br>
-                                                                                <input type="email" name="login" id="editLogin" /><br><br>
+                                                                                <label for="editNickname">Nickname</label><br>
+                                                                                <input type="text" name="nickname" id="editNickname" /><br><br>
+                                                                                <label for="editBirthdate">Birthdate</label><br>
+                                                                                <input type="text" name="birthDate" id="editBirthdate" /><br><br>
+                                                                                <label for="editCountry">Country</label><br>
+                                                                                <input type="text" name="country" id="editCountry" /><br><br>
+                                                                                <label for="editDetails">Details</label><br>
+                                                                                <input type="text" name="details" id="editDetails" /><br><br>
+                                                                                <label for="editmail">Email</label><br>
+                                                                                <input type="email" name="mail" id="editmail" /><br><br>
                                                                                 <label for="editPassword">Password</label><br>
                                                                                 <input type="password" name="password" id="editPassword" /><br><br>
                                                                                 <label for="editRole">Role</label><br>
-                                                                                <select size="2" name="editRoles" id="editRole"></select>
+                                                                                <select size="3" name="editRoles" id="editRole"></select>
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -125,19 +134,25 @@
                                                                         <form id="delUserForm">
                                                                             <div class="form-group text-center">
                                                                                 <label for="delId">ID</label><br>
-                                                                                <input type="number" id="delId" name="id" readonly><br><br>
+                                                                                <input type="number" name="id" id="delId" disabled/><br><br>
                                                                                 <label for="delName">First name</label><br>
-                                                                                <input type="text" id="delName" name="name" readonly><br><br>
-                                                                                <label for="delLastName">Last name</label><br>
-                                                                                <input type="text" id="delLastName" name="lastName" readonly><br><br>
-                                                                                <label for="delAge">Phone number</label><br>
-                                                                                <input type="number" id="delAge" name="age" readonly><br><br>
-                                                                                <label for="delLogin">Email</label><br>
-                                                                                <input type="email" id="delLogin" name="login" readonly><br><br>
+                                                                                <input type="text" name="name" id="delName" /><br><br>
+                                                                                <label for="delLastname">Last name</label><br>
+                                                                                <input type="text" name="lastName" id="delLastname" /><br><br>
+                                                                                <label for="delNickname">Nickname</label><br>
+                                                                                <input type="text" name="nickname" id="delNickname" /><br><br>
+                                                                                <label for="delBirthdate">Birthdate</label><br>
+                                                                                <input type="text" name="birthDate" id="delBirthdate" /><br><br>
+                                                                                <label for="delCountry">Country</label><br>
+                                                                                <input type="text" name="country" id="delCountry" /><br><br>
+                                                                                <label for="delDetails">Details</label><br>
+                                                                                <input type="text" name="details" id="delDetails" /><br><br>
+                                                                                <label for="delMail">Email</label><br>
+                                                                                <input type="email" name="mail" id="delMail" /><br><br>
                                                                                 <label for="delPassword">Password</label><br>
-                                                                                <input type="password" id="delPassword" name="password" autocomplete="on" readonly><br><br>
+                                                                                <input type="password" name="password" id="delPassword" /><br><br>
                                                                                 <label for="delRole">Role</label><br>
-                                                                                <select size="2" id="delRole" name="delRoles"></select>
+                                                                                <select size="3" name="editRoles" id="delRole"></select>
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -172,11 +187,20 @@
                                                    <label for="lastName">Last name</label><br>
                                                    <input type="text" id="lastName"/><br/>
                                                    <br>
-                                                   <label for="age">Age</label><br>
-                                                   <input type="number" id="age"/><br/>
+                                                   <label for="nickname">Nickname</label><br>
+                                                   <input type="text" id="nickname"/><br/>
                                                    <br>
-                                                   <label for="login">Email</label><br>
-                                                   <input type="email" id="login"/><br/>
+                                                   <label for="birthDate">Birthdate</label><br>
+                                                   <input type="text" id="birthDate"/><br/>
+                                                   <br>
+                                                   <label for="country">Country</label><br>
+                                                   <input type="text" id="country"/><br/>
+                                                   <br>
+                                                   <label for="details">Details</label><br>
+                                                   <input type="text" id="details"/><br/>
+                                                   <br>
+                                                   <label for="mail">Mail</label><br>
+                                                   <input type="email" id="mail"/><br/>
                                                    <br>
                                                    <label for="password">Password</label><br>
                                                    <input type="password" id="password"/><br/>
@@ -198,12 +222,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- User content-->
+                    <!-- user content-->
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <h1 style="color: black">User information-page</h1>
+                        <h1 style="color: black">Admin information-page</h1>
                         <div class="card">
                             <div class="card-header">
-                                <h2 style="color: black">About user</h2>
+                                <h2 style="color: black">About admin</h2>
                             </div>
                             <div class="card-body">
                                 <div class="card-text">
@@ -213,8 +237,11 @@
                                             <th>ID</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
-                                            <th>Age</th>
+                                            <th>Nick name</th>
                                             <th>Email</th>
+                                            <th>Birthdate</th>
+                                            <th>Country</th>
+                                            <th>Details</th>
                                             <th>Role</th>
                                         </tr>
                                         </thead>
@@ -223,8 +250,11 @@
                                             <td th:text="${u.getId()}"></td>
                                             <td th:text="${u.getName()}"></td>
                                             <td th:text="${u.getLastName()}"></td>
-                                            <td th:text="${u.getAge()}"></td>
-                                            <td th:text="${u.getLogin()}"></td>
+                                            <td th:text="${u.getNickname()}"></td>
+                                            <td th:text="${u.getMail()}"></td>
+                                            <td th:text="${u.getBirthDate()}"></td>
+                                            <td th:text="${u.getCountry()}"></td>
+                                            <td th:text="${u.getDetails()}"></td>
                                             <td th:text="${u.getRoles()}"></td>
                                         </tr>
                                         </tbody>
@@ -243,6 +273,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
