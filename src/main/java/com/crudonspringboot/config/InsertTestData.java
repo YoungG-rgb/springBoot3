@@ -6,7 +6,7 @@ import com.crudonspringboot.models.User;
 import com.crudonspringboot.service.Service.PublicationService;
 import com.crudonspringboot.service.Service.RoleService;
 import com.crudonspringboot.service.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -15,21 +15,15 @@ import java.nio.file.Files;
 import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class InsertTestData {
 
     private final UserService userService;
     private final RoleService roleService;
     private final PublicationService publicationService;
 
-    @Autowired
-    public InsertTestData(UserService userService, RoleService roleService, PublicationService publicationService){
-        this.userService = userService;
-        this.roleService = roleService;
-        this.publicationService = publicationService;
-    }
-
     @PostConstruct
-    public void doInit() throws IOException {
+    public void init() throws IOException {
         //-------------------------------------------------------------------------------------------------
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");

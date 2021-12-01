@@ -24,7 +24,7 @@ public class PublicationController {
         String text = new String(publicationService.findById(id).getPublicationText());
         model.addAttribute("post", publicationService.findById(id));
         model.addAttribute("text", text);
-        return "post";
+        return "homepage/post";
     }
 
 }

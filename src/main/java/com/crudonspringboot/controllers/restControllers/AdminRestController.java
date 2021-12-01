@@ -4,6 +4,7 @@ import com.crudonspringboot.models.Role;
 import com.crudonspringboot.models.User;
 import com.crudonspringboot.service.Service.RoleService;
 import com.crudonspringboot.service.Service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class MyRestController {
+@RequiredArgsConstructor
+public class AdminRestController {
     private final UserService userService;
     private final RoleService roleService;
-
-    @Autowired
-    public MyRestController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
 
     @GetMapping("/admin")
     public ResponseEntity<List<User>> getAllUsers(){

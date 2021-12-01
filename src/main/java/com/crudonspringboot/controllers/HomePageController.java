@@ -2,22 +2,17 @@ package com.crudonspringboot.controllers;
 
 import com.crudonspringboot.service.Service.RoleService;
 import com.crudonspringboot.service.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @Controller
-public class MyController {
+@RequiredArgsConstructor
+public class HomePageController {
     private final UserService userService;
     private final RoleService roleService;
-
-    @Autowired
-    public MyController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
 
     @GetMapping("/admin")
     public String index(Model model, Principal principal){
@@ -34,26 +29,32 @@ public class MyController {
 
     @GetMapping("/stories")
     public String getStories(){
-        return "stories";
+        return "homepage/stories";
     }
 
     @GetMapping("/educationalMaterial")
     public String getMaterial(){
-        return "educationalMaterial";
+        return "homepage/educationalMaterial";
     }
 
     @GetMapping("/interviews")
     public String getInterviews(){
-        return "interviews";
+        return "homepage/interviews";
     }
 
     @GetMapping("/nauchpop")
     public String getNauchpop(){
-        return "nauchpop";
+        return "homepage/nauchpop";
     }
 
     @GetMapping("/blog")
     public String getBlog(){
-        return "blog";
+        return "homepage/blog";
+    }
+
+    @GetMapping()
+    public String getHomePage(Model model){
+        model.addAttribute("AllRoles", roleService.getAllRoles());
+        return "homepage/main";
     }
 }
